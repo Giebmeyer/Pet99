@@ -80,6 +80,12 @@ class _HomeState extends State<Home> {
               endIndent: 15,
               indent: 15,
             ),
+            Text("Duplo click na coleta para mais detalhes",
+                style: TextStyle(fontSize: 13), textAlign: TextAlign.center),
+            Divider(
+              endIndent: 15,
+              indent: 15,
+            ),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: _refresh,
