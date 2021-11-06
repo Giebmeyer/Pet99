@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
               indent: 15,
             ),
             Text("Duplo click na coleta para mais detalhes",
-                style: TextStyle(fontSize: 13), textAlign: TextAlign.center),
+                style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
             Divider(
               endIndent: 15,
               indent: 15,
@@ -127,9 +127,11 @@ class _HomeState extends State<Home> {
         ),
         direction: DismissDirection.startToEnd,
         child: CheckboxListTile(
-          title: Text(toDoList[index]["title"]),
+          title: Text(toDoList[index]["tipoAnimal"] +
+              ", " +
+              toDoList[index]["porteAnimal"]),
           subtitle: Text("Rua: " +
-              toDoList[index]["endereco"] +
+              toDoList[index]["rua"] +
               ", Nº" +
               toDoList[index]["numero"] +
               "\n" +
@@ -154,7 +156,7 @@ class _HomeState extends State<Home> {
             _saveData();
 
             final snack = SnackBar(
-              content: Text("Tarefa \"${_lastRemoved["title"]}\" removida!"),
+              content: Text("Tarefa removida!"),
               action: SnackBarAction(
                   label: "Desfazer",
                   textColor: Colors.white,
@@ -202,39 +204,6 @@ class _HomeState extends State<Home> {
     return file.writeAsString(data);
   }
 
-  String validarNomeTarefa(String value) {
-    String patttern = r'^[a-zA-Z0-9.a-zA-Z0-9`´ ]';
-    RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
-      return "Informe a tarefa";
-    } else if (!regExp.hasMatch(value)) {
-      return "Título inválido";
-    }
-    return null;
-  }
-
-  String validarBairroTarefa(String value) {
-    String patttern = r'^[a-zA-Z0-9.a-zA-Z0-9`´ ]';
-    RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
-      return "Informe o bairro";
-    } else if (!regExp.hasMatch(value)) {
-      return "Bairro inválido";
-    }
-    return null;
-  }
-
-  String validarEnderecoTarefa(String value) {
-    String patttern = r'^[a-zA-Z0-9.a-zA-Z0-9`´ ]';
-    RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
-      return "Informe o endereço";
-    } else if (!regExp.hasMatch(value)) {
-      return "Endereço inválido";
-    }
-    return null;
-  }
-
   Widget botaoAddCard() {
     return SizedBox(
       width: 45,
@@ -259,7 +228,7 @@ class _HomeState extends State<Home> {
       child: FlatButton(
         color: Colors.blue,
         textColor: Colors.white,
-        child: Text('Confirmar'),
+        child: Text('Ok'),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -275,7 +244,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       content: Container(
-        height: MediaQuery.of(context).size.height * 0.20,
+        height: MediaQuery.of(context).size.height * 0.30,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -295,10 +264,32 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 Text(
+                  "Tipo do animal: ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(toDoList[index]["tipoAnimal"]),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "Porte: ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(toDoList[index]["porteAnimal"]),
+              ],
+            ),
+            Divider(
+              endIndent: 10,
+              indent: 10,
+            ),
+            Row(
+              children: [
+                Text(
                   "Rua: ",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(toDoList[index]["endereco"] + ", "),
+                Text(toDoList[index]["rua"] + ", "),
                 Text(
                   "Nº ",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -329,7 +320,7 @@ class _HomeState extends State<Home> {
                   "Observações: ",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(toDoList[index]["DescricaoAdicional"]),
+                Text(verificaDescricao(index)),
               ],
             ),
           ],
@@ -350,5 +341,9 @@ class _HomeState extends State<Home> {
 
   verificaColeta(int index) {
     return toDoList[index]["ok"] ? "Coletado!" : "Pendente...";
+  }
+
+  verificaDescricao(int index) {
+    return toDoList[index]["DescricaoAdicional"] ?? "...";
   }
 }

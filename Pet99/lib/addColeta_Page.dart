@@ -15,14 +15,18 @@ class adicionarColeta extends StatefulWidget {
 class _adicionarColetaState extends State<adicionarColeta> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
-  TextEditingController _Descricao = new TextEditingController();
   TextEditingController _Bairro = new TextEditingController();
   TextEditingController _Rua = new TextEditingController();
   TextEditingController _Numero = new TextEditingController();
   TextEditingController _DescricaoAdicional = new TextEditingController();
+  String _tipoAnimal = "Cachorro";
+  String _porteAnimal = "pequeno";
+  bool _habilitaText = false;
 
   @override
   Widget build(BuildContext context) {
+    bool _value = false;
+
     return Scaffold(
         appBar: AppBar(
           title: Text("Nova Coleta | Pet99"),
@@ -38,17 +42,108 @@ class _adicionarColetaState extends State<adicionarColeta> {
                   child: Container(
                     child: Column(
                       children: [
+                        Divider(
+                          endIndent: 15,
+                          indent: 15,
+                        ),
+                        Text("Animal",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Cachorro"),
+                            Radio(
+                              value: "Cachorro",
+                              groupValue: _tipoAnimal,
+                              onChanged: (value) {
+                                setState(() {
+                                  _habilitaText = false;
+                                  _tipoAnimal = value.toString();
+                                });
+                              },
+                            ),
+                            Text("Gato"),
+                            Radio(
+                              value: "Gato",
+                              groupValue: _tipoAnimal,
+                              onChanged: (value) {
+                                setState(() {
+                                  _habilitaText = false;
+                                  _tipoAnimal = value.toString();
+                                });
+                              },
+                            ),
+                            Text("Outro"),
+                            Radio(
+                              value: "Outro",
+                              groupValue: _tipoAnimal,
+                              onChanged: (value) {
+                                setState(() {
+                                  _habilitaText = true;
+                                  _tipoAnimal = value.toString();
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                         TextFormField(
-                          controller: _Descricao,
-                          validator: validarNomeTarefa,
+                          onChanged: (value) {
+                            _tipoAnimal = value.toString();
+                          },
                           decoration: InputDecoration(
-                            labelText: "Descrição",
-                            hintText: "Cachorro Pequeno, Macho",
-                            hintStyle: TextStyle(fontSize: 12),
+                            enabled: _habilitaText,
+                            labelText: "Outro animal",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15.0)),
                           ),
                         ),
+                        Divider(
+                          endIndent: 15,
+                          indent: 15,
+                        ),
+                        Text("Porte do " + _tipoAnimal,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Pequeno"),
+                            Radio(
+                              value: "pequeno",
+                              groupValue: _porteAnimal,
+                              onChanged: (value) {
+                                setState(() {
+                                  _porteAnimal = value.toString();
+                                });
+                              },
+                            ),
+                            Text("Médio"),
+                            Radio(
+                              value: "médio",
+                              groupValue: _porteAnimal,
+                              onChanged: (value) {
+                                setState(() {
+                                  _porteAnimal = value.toString();
+                                });
+                              },
+                            ),
+                            Text("Grande"),
+                            Radio(
+                              value: "grande",
+                              groupValue: _porteAnimal,
+                              onChanged: (value) {
+                                setState(() {
+                                  _porteAnimal = value.toString();
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          endIndent: 15,
+                          indent: 15,
+                        ),
+                        Text("Endereço",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(height: 10),
                         TextFormField(
                           controller: _Bairro,
@@ -140,12 +235,12 @@ class _adicionarColetaState extends State<adicionarColeta> {
   void _addToDo() {
     setState(() {
       Map<String, dynamic> newToDo = Map();
-      newToDo["title"] = _Descricao.text.trim();
+      newToDo["tipoAnimal"] = _tipoAnimal.trim();
+      newToDo["porteAnimal"] = _porteAnimal.trim();
       newToDo["bairro"] = _Bairro.text.trim();
-      newToDo["endereco"] = _Rua.text.trim();
+      newToDo["rua"] = _Rua.text.trim();
       newToDo["numero"] = _Numero.text.trim();
       newToDo["DescricaoAdicional"] = _DescricaoAdicional.text.trim();
-      _Descricao.clear();
       _Bairro.clear();
       _Rua.clear();
       _Numero.clear();
