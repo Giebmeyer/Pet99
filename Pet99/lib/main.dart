@@ -206,8 +206,6 @@ class _HomeState extends State<Home> {
 
   Widget botaoAddCard() {
     return SizedBox(
-      width: 45,
-      height: 45,
       child: FloatingActionButton(
         heroTag: "Add Entrega",
         onPressed: () {

@@ -101,7 +101,7 @@ class _adicionarColetaState extends State<adicionarColeta> {
                           endIndent: 15,
                           indent: 15,
                         ),
-                        Text("Porte do " + _tipoAnimal,
+                        Text("Porte",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -144,12 +144,14 @@ class _adicionarColetaState extends State<adicionarColeta> {
                         ),
                         Text("Endereço",
                             style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text("Campos que possuem * são obrigatórios.",
+                            style: TextStyle(fontSize: 12)),
                         SizedBox(height: 10),
                         TextFormField(
                           controller: _Bairro,
                           validator: validarBairroTarefa,
                           decoration: InputDecoration(
-                            labelText: "Bairro",
+                            labelText: "* Bairro",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15.0)),
                           ),
@@ -163,12 +165,12 @@ class _adicionarColetaState extends State<adicionarColeta> {
                               children: [
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.67,
+                                      MediaQuery.of(context).size.width * 0.65,
                                   child: TextFormField(
                                       validator: validarRuaTarefa,
                                       controller: _Rua,
                                       decoration: InputDecoration(
-                                          labelText: 'Rua',
+                                          labelText: '* Rua',
                                           border: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(
@@ -176,13 +178,13 @@ class _adicionarColetaState extends State<adicionarColeta> {
                                 ),
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.23,
+                                      MediaQuery.of(context).size.width * 0.25,
                                   child: TextFormField(
                                       validator: validarNumero,
                                       controller: _Numero,
                                       keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
-                                          labelText: 'Nº',
+                                          labelText: '* Nº',
                                           border: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(
@@ -197,8 +199,7 @@ class _adicionarColetaState extends State<adicionarColeta> {
                           controller: _DescricaoAdicional,
                           decoration: InputDecoration(
                             labelText: "Descrição Adicional",
-                            hintText:
-                                "Proprietária deseja que a coleta seja as 14Hrs",
+                            hintText: "2º Andar",
                             hintStyle: TextStyle(fontSize: 12),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15.0)),
