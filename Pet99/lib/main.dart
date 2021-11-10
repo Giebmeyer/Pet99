@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
               endIndent: 15,
               indent: 15,
             ),
-            Text("Duplo click na coleta para mais detalhes",
+            Text("Pressione sobre a coleta para mais detalhes",
                 style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
             Divider(
               endIndent: 15,
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
 
   Widget buildItem(BuildContext context, int index) {
     return InkWell(
-      onDoubleTap: () {
+      onLongPress: () {
         setState(() {
           _exibirDialogo(index);
         });
